@@ -1,40 +1,41 @@
-export function Controls(){
+export default function Controls({
+    buttonPlay, 
+    buttonPause, 
+    buttonSet, 
+    buttonStop 
+}) {
+    function play() {
+        buttonPlay.classList.add('hide');
+        buttonPause.classList.remove('hide');
+        buttonSet.classList.add('hide');
+        buttonStop.classList.remove('hide');
+    }
 
-    buttonPlay.addEventListener('click', function(){
-        countDown();
-    })
-    
-    buttonStop.addEventListener('click', function() {
-        resetTimer();
-    })
-    
-    buttonIncrease.addEventListener('click', function(){
-        let calc = Number(minutesDisplay.textContent) + 5;
-        let minutes = String(calc).padStart(2, '0');
-    
-        buttonDecrease.classList.remove('maxPress');
-        
-        if( calc >= 60 ){
-            minutes = 60;
-            buttonIncrease.classList.add('maxPress');
+    function pause() {
+        buttonPause.classList.add('hide');
+        buttonPlay.classList.remove('hide');
+    }
+
+    function reset() {
+        buttonPlay.classList.remove('hide');
+        buttonPause.classList.add('hide');
+        buttonSet.classList.remove('hide');
+        buttonStop.classList.add('hide');
+    }
+
+    function getMinutes() {
+        let newMinutes = prompt('Quantos minutos?');
+        if (!newMinutes) {
+            return false
         }
-        
-        updateTimerDisplay(minutes, '00');
-    })
-    
-    buttonDecrease.addEventListener('click', function(){
-        let calc = Number(minutesDisplay.textContent) - 5;
-        let minutes = String(calc).padStart(2, '0');
-        
-        buttonIncrease.classList.remove('maxPress');
-        if( calc < 0 ){
-            minutes = 0;
-            buttonDecrease.classList.add('maxPress');
-        }
-    
-        updateTimerDisplay(minutes, '00');
-    })
+
+        return newMinutes
+    }
+
+    return {
+        reset,
+        play,
+        pause,
+        getMinutes
+    }
 }
-
-
-
